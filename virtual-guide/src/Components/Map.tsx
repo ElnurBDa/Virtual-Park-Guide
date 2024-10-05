@@ -1,13 +1,13 @@
 import MapComponent from "./map/MapComponent";
 import LegendComponent from "./map/LegendComponent";
+import { Box } from '@mui/material';
 
 const Map = ({ geojsonData }: { geojsonData: any }) => {
   return (
-    <div style={{ position: "relative" }}>
-      <h1>Map</h1>
+    <Box position="relative" sx={{my:3}}>
       <MapComponent geojson={geojsonData} />
       <LegendComponent geojson={geojsonData} />
-    </div>
+    </Box>
   );
 };
 

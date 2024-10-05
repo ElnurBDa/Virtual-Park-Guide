@@ -4,6 +4,17 @@ import { GeoJSON } from "ol/format";
 import pointIcons from "./utils/pointIcons";
 import { FaSquare } from "react-icons/fa";
 import PolygonColors from "./utils/PolygonColors";
+import {
+  Box,
+  Typography,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Paper,
+  IconButton,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import InfoIcon from "@mui/icons-material/Info";
 
 interface G {
   geometry: string | undefined;
@@ -18,6 +29,8 @@ const LegendComponent: React.FC<{
   const [points, setPoints] = React.useState<G[]>([]);
   const [trails, setTrails] = React.useState<G[]>([]);
   const [areas, setAreas] = React.useState<G[]>([]);
+  const [expanded, setExpanded] = React.useState(false);
+
   useEffect(() => {
     const geojsonFormat = new GeoJSON();
     const features = geojsonFormat.readFeatures(geojson);
@@ -51,87 +64,120 @@ const LegendComponent: React.FC<{
   }, [geojson]);
 
   return (
-    <div
-      style={{
-        padding: "20px",
+    <Paper
+      elevation={3}
+      sx={{
+        padding: 0.5,
         fontFamily: "Arial, sans-serif",
         position: "absolute",
         top: 10,
         right: 10,
-        backgroundColor: "white",
-        borderRadius: "5px",
-        boxShadow: "0 0 10px rgba(0,0,0,0.5)",
+        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        borderRadius: 1,
+        transition: "width 0.3s, height 0.3s",
+        width: expanded ? "300px" : "40px",
+        height: expanded ? "auto" : "40px",
+        overflow: "hidden",
       }}
     >
-      <h2 style={{ borderBottom: "2px solid #ccc", paddingBottom: "10px" }}>
-        Legend
-      </h2>
+      <IconButton
+        onClick={() => setExpanded(!expanded)}
+        sx={{ position: "absolute", right: 0, top: 0 }}
+      >
+        <InfoIcon sx={{
+          transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+          transition: "transform 0.3s",
+          color: expanded ? "green" : "gray",
+          width: 30,
+          height: 30,
+        }}/>
+      </IconButton>
 
-      <details style={{ marginBottom: "20px" }}>
-        <summary style={{ color: "#2c3e50", cursor: "pointer" }}>Points</summary>
-        {points.map((point) => (
-          <div
-            key={point.type}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "10px",
-            }}
-          >
-            <div style={{ marginRight: "10px" }}>
-              {pointIcons[point.type as keyof typeof pointIcons]}
-            </div>
-            <p style={{ margin: 0 }}>{point.type}</p>
-          </div>
-        ))}
-      </details>
+      {expanded && (
+        <>
+          <Typography variant="h6" gutterBottom>
+            Legend
+          </Typography>
 
-      <details style={{ marginBottom: "20px" }}>
-        <summary style={{ color: "#2c3e50", cursor: "pointer" }}>Trails</summary>
-        {trails.map((trail) => (
-          <div
-            key={trail.type}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "10px",
-            }}
-          >
-            <FaSquare
-              size={20}
-              color={trail.color}
-              style={{ marginRight: "10px" }}
-            />
-            <p style={{ margin: 0 }}>
-              {trail.type} - {trail.name}
-            </p>
-          </div>
-        ))}
-      </details>
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>Points</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {points.map((point) => (
+                <Box
+                  key={point.type}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginBottom: 1,
+                  }}
+                >
+                  <Box sx={{ marginRight: 1 }}>
+                    {pointIcons[point.type as keyof typeof pointIcons]}
+                  </Box>
+                  <Typography>{point.type}</Typography>
+                </Box>
+              ))}
+            </AccordionDetails>
+          </Accordion>
 
-      <details>
-        <summary style={{ color: "#2c3e50", cursor: "pointer" }}>Areas</summary>
-        {areas.map((area) => (
-          <div
-            key={area.type}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "10px",
-            }}
-          >
-            <FaSquare
-              size={20}
-              color={area.color}
-              style={{ marginRight: "10px" }}
-            />
-            <p style={{ margin: 0 }}>
-              {area.type} - {area.name}
-            </p>
-          </div>
-        ))}
-      </details>
-    </div>
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>Trails</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {trails.map((trail) => (
+                <Box
+                  key={trail.type}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginBottom: 1,
+                  }}
+                >
+                  <FaSquare
+                    size={20}
+                    color={trail.color}
+                    style={{ marginRight: 10 }}
+                  />
+                  <Typography>
+                    {trail.type} - {trail.name}
+                  </Typography>
+                </Box>
+              ))}
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>Areas</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {areas.map((area) => (
+                <Box
+                  key={area.type}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginBottom: 1,
+                  }}
+                >
+                  <FaSquare
+                    size={20}
+                    color={area.color}
+                    style={{ marginRight: 10 }}
+                  />
+                  <Typography>
+                    {area.type} - {area.name}
+                  </Typography>
+                </Box>
+              ))}
+            </AccordionDetails>
+          </Accordion>
+        </>
+      )}
+    </Paper>
   );
 };
 

@@ -1,13 +1,17 @@
-import React from "react";
-import geojsonData from "./sample_park.json";
-import Map from "./Components/Map";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./Components/Layout";
+import Main from "./Pages/Main";
 
-const App: React.FC = () => {
+export function App() {
   return (
-    <div >
-      <Map geojsonData={geojsonData} />
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Main />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
-};
-
-export default App;
+}

@@ -1,4 +1,9 @@
-version: '3.8'
+networks:
+  vg-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
 
 services:
   mongo:
@@ -12,6 +17,21 @@ services:
       - mongo_data:/data/db
     ports:
       - "27017:27017"
+    networks:
+      vg-net:
+        ipv4_address: 172.25.0.2
+
+  vg-api:
+    image: vg-api
+    build: ./vg-api
+    env_file:
+      - ./vg-api/.env
+    container_name: vg-api-c
+    ports:
+      - "3000:3000"
+    networks:
+      vg-net:
+        ipv4_address: 172.25.0.3
 
 volumes:
   mongo_data:

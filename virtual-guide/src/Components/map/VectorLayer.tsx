@@ -150,6 +150,51 @@ export const createVectorLayer = (geojson: any) => {
                 20
               );
               break;
+            case "endurance":
+              iconStyle = createPointStyle(
+                pointIcons.endurance,
+                description,
+                "#fff",
+                "brown",
+                20
+              );
+              break;
+            case "info":
+              iconStyle = createPointStyle(
+                pointIcons.info,
+                description,
+                "#fff",
+                "blue",
+                20
+              );
+              break;
+            case "landscape":
+              iconStyle = createPointStyle(
+                pointIcons.landscape,
+                description,
+                "#fff",
+                "green",
+                20
+              );
+              break;
+            case "picnic":
+              iconStyle = createPointStyle(
+                pointIcons.picnic,
+                description,
+                "#fff",
+                "gold",
+                20
+              );
+              break;
+            default:
+              iconStyle = createPointStyle(
+                pointIcons.attraction,
+                description,
+                "#fff",
+                "gold",
+                15
+              );
+              break;
           }
           break;
         }

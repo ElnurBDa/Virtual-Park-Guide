@@ -10,6 +10,7 @@ import {
   FaCar,
   FaCarCrash,
   FaWalking,
+  FaHiking,
 } from "react-icons/fa";
 import { FaSailboat } from "react-icons/fa6";
 
@@ -30,6 +31,10 @@ const pointIcons = {
   nocar: <FaCarCrash size={size} color="#FF0000" />,
   boat: <FaSailboat size={size} color="#A0522D" />,
   walk: <FaWalking size={size} color="#66BB6A" />,
+  endurance: <FaHiking size={size} color="#8B0000" />,
+  info: <FaInfoCircle size={size} color="#1E90FF" />,
+  landscape: <FaStar size={size} color="#32CD32" />,
+  picnic: <FaCampground size={size} color="#FFD700" />
 };
 
 export default pointIcons;

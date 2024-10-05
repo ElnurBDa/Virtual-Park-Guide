@@ -1,5 +1,5 @@
 {
-  "title": "Sample National Park",
+  "name": "Sample National Park",
   "description": "This is a sample national park with some trails and points of interest.",
   "geojson": {
     "type": "FeatureCollection",

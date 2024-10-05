@@ -105,20 +105,65 @@ export const createVectorLayer = (geojson: any) => {
                 20
               );
               break;
+            case "parking":
+              iconStyle = createPointStyle(
+                pointIcons.parking,
+                description,
+                "#fff",
+                "gray",
+                20
+              );
+              break;
+            case "hotel":
+              iconStyle = createPointStyle(
+                pointIcons.hotel,
+                description,
+                "#fff",
+                "darkblue",
+                20
+              );
+              break;
+            case "nocar":
+              iconStyle = createPointStyle(
+                pointIcons.nocar,
+                description,
+                "#fff",
+                "red",
+                20
+              );
+              break;
+            case "boat":
+              iconStyle = createPointStyle(
+                pointIcons.boat,
+                description,
+                "#fff",
+                "blue",
+                20
+              );
+              break;
+            case "walk":
+              iconStyle = createPointStyle(
+                pointIcons.walk,
+                description,
+                "#fff",
+                "green",
+                20
+              );
+              break;
           }
           break;
         }
         case "LineString":
           {
             switch (type) {
-              case "walk":
+              case "car":
                 iconStyle = createLineStringStyle(feature, undefined);
                 break;
-              case "car":
+              case "walk":
                 iconStyle = createLineStringStyle(feature, [10, 10]);
                 break;
               case "boat":
-                iconStyle = createLineStringStyle(feature, [5, 15]);
+                iconStyle = createLineStringStyle(feature, [5, 5]);
                 break;
               default:
                 iconStyle = createLineStringStyle(feature, undefined);

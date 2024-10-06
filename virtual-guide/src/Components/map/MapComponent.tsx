@@ -16,7 +16,6 @@ const MapComponent: React.FC<{
     const features = geojsonFormat.readFeatures(geojson);
     const polygon = features[0].getGeometry();
     const center = getCenter(polygon!.getExtent());
-    console.log(geojson);
 
     const map = new Map({
       target: "map",

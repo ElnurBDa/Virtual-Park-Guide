@@ -6,11 +6,14 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Box,
   Typography,
   Button,
   CircularProgress,
+  Divider,
 } from "@mui/material";
 import axios from "axios";
+import Map from "../Components/Map";
 
 const url = process.env.REACT_APP_VG_API;
 
@@ -18,12 +21,15 @@ interface Park {
   _id: string;
   name: string;
   description: string;
-  imageUrl: string; // Assuming each park has an image URL
+  images: {
+    thumbnail: string;
+  }
 }
 
 const Home: React.FC = () => {
   const [parks, setParks] = useState<Park[]>([]);
   const [loading, setLoading] = useState(true);
+  const [map, setMap] = useState<any>({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,6 +37,8 @@ const Home: React.FC = () => {
       try {
         const response = await axios.get(`${url}/parks`);
         setParks(response.data);
+        const response2 = await axios.get(`${url}/map`);
+        setMap(response2.data);
       } catch (error) {
         console.error("Error fetching parks:", error);
       } finally {
@@ -60,8 +68,7 @@ const Home: React.FC = () => {
             <Card>
               <CardMedia
                 component="img"
-                height="200"
-                image={park.imageUrl || "https://via.placeholder.com/200"} // Fallback image
+                image={park.images.thumbnail || "https://via.placeholder.com/200"} // Fallback image
                 alt={park.name}
               />
               <CardContent>
@@ -86,6 +93,13 @@ const Home: React.FC = () => {
           </Grid>
         ))}
       </Grid>
+      <Divider sx={{ mb: 3 }} />
+      <Typography variant="h4" gutterBottom>
+        Explore Map
+      </Typography>
+      <Box sx={{ my: 3 }}>
+      <Map geojsonData={map} />
+      </Box>
     </Container>
   );
 };

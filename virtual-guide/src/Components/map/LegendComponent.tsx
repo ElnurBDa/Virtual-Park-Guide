@@ -47,17 +47,17 @@ const LegendComponent: React.FC<{
             : undefined);
         return { geometry, type, name, color };
       })
-      .filter(
-        (value, index, self) =>
-          index ===
-          self.findIndex(
-            (t) => t.type === value.type && t.geometry === value.geometry
-          )
-      );
-    const points = types.filter((type) => type.geometry === "Point");
+      
+    const points = types.filter((type) => type.geometry === "Point").filter(
+      (value, index, self) =>
+        index ===
+        self.findIndex(
+          (t) => t.type === value.type && t.geometry === value.geometry
+        )
+    );;
     const trails = types.filter((type) => type.geometry === "LineString");
     const areas = types.filter((type) => type.geometry === "Polygon");
-
+    
     setPoints(points);
     setTrails(trails);
     setAreas(areas);

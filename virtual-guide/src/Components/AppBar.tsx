@@ -19,12 +19,17 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -126,6 +131,12 @@ export default function PrimarySearchAppBar() {
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
+        <ListItem component={Link} to="/search">
+          <ListItemIcon>
+            <SearchIcon />
+          </ListItemIcon>
+          <ListItemText primary="Search" />
+        </ListItem>
       </List>
     </Box>
   );
@@ -147,28 +158,33 @@ export default function PrimarySearchAppBar() {
           <Typography
             variant="h6"
             noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            component={Link}
+            to="/"
+            sx={{ color: "inherit", textDecoration: "none" }}
           >
             GeoGreen
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Button
-            color="inherit"
-            startIcon={<HomeIcon />}
-            component={Link}
-            to="/"
-          >
-            Home
-          </Button>
-          <Button
-            color="inherit"
-            startIcon={<SearchIcon />}
-            component={Link}
-            to="/search"
-          >
-            Search
-          </Button>
+          {!isMobile && (
+            <>
+              <Button
+                color="inherit"
+                startIcon={<HomeIcon />}
+                component={Link}
+                to="/"
+              >
+                Home
+              </Button>
+              <Button
+                color="inherit"
+                startIcon={<SearchIcon />}
+                component={Link}
+                to="/search"
+              >
+                Search
+              </Button>
+            </>
+          )}
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"

@@ -162,7 +162,7 @@ export default function PrimarySearchAppBar() {
             to="/"
             sx={{ color: "inherit", textDecoration: "none" }}
           >
-            GeoGreen
+            GreenGeo
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           {!isMobile && (

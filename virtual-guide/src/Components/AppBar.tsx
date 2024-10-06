@@ -12,6 +12,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
+import InfoIcon from "@mui/icons-material/Info";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -137,6 +138,12 @@ export default function PrimarySearchAppBar() {
           </ListItemIcon>
           <ListItemText primary="Search" />
         </ListItem>
+        <ListItem component={Link} to="/about">
+          <ListItemIcon>
+            <InfoIcon />
+          </ListItemIcon>
+          <ListItemText primary="About" />
+        </ListItem>
       </List>
     </Box>
   );
@@ -155,12 +162,22 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
+          <Box
+            component="img"
+            sx={{
+              height: 40,
+              width: 40,
+              marginRight: 2,
+            }}
+            alt="GreenGeo Logo"
+            src="/logo192.png"
+          />
           <Typography
             variant="h6"
             noWrap
             component={Link}
             to="/"
-            sx={{ color: "inherit", textDecoration: "none" }}
+            sx={{ color: "inherit", textDecoration: "none", display: "flex", alignItems: "center" }}
           >
             GreenGeo
           </Typography>
@@ -182,6 +199,14 @@ export default function PrimarySearchAppBar() {
                 to="/search"
               >
                 Search
+              </Button>
+              <Button
+                color="inherit"
+                startIcon={<InfoIcon />}
+                component={Link}
+                to="/about"
+              >
+                About
               </Button>
             </>
           )}
